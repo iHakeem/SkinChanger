@@ -1,0 +1,7 @@
+name: proNick
+version: ${project.version}
+main: com.bydeadbeaf.pronick.Main
+commands:
+  nick:
+    description: gg
+
