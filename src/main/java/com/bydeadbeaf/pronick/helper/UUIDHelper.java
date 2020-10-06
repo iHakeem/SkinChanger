@@ -12,6 +12,7 @@ public class UUIDHelper {
         return stringBuilder.toString();
     }
 
+    // this is a manual way to format uuid I am sure there is better ways
     public String formatUUID(String id){
         String uuid = addCharToString(id , '-' , 8);
         uuid = addCharToString(uuid , '-',13);
@@ -25,7 +26,6 @@ public class UUIDHelper {
         final Matcher matcher = pattern.matcher(body);
         matcher.find();
         String id = matcher.group(1);
-        String uuid = formatUUID(id);
-        return uuid;
+        return formatUUID(id);
     }
 }

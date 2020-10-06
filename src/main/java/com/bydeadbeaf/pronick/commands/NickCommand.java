@@ -17,6 +17,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class NickCommand implements CommandExecutor {
 
+    // those 2 functions to send packets to server players or player him self
+
     private void sendPacket(Packet<?> packet) {
         Bukkit.getOnlinePlayers().forEach(all -> ((CraftPlayer) all).getHandle().playerConnection.sendPacket(packet));
     }
@@ -39,6 +41,7 @@ public class NickCommand implements CommandExecutor {
             player.sendMessage(ChatColor.RED + "Invalid arguments!");
             return false;
         }
+
         HttpManger httpManger = new HttpManger();
         UUIDHelper uuidHelper = new UUIDHelper();
         SkinTextureParser skinTextureParser = new SkinTextureParser();
@@ -49,10 +52,12 @@ public class NickCommand implements CommandExecutor {
         String signature = skinTextureParser.getSig(skinData);
         CraftPlayer craftPlayer = (CraftPlayer) player;
 
-
+        // remove old texture and replace it with new one
+        // but nothing will change until player respawn without losing player data (edited texture)
         craftPlayer.getProfile().getProperties().removeAll("textures");
         craftPlayer.getProfile().getProperties().put("textures" , new Property("textures" , skin , signature));
 
+        // basically respawn player without killing him :)
         new BukkitRunnable(){
             @Override
             public void run() {
